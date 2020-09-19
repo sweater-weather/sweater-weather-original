@@ -2,16 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'Log In User' do
   describe 'As a authenticated user' do
-    before :each do
+    it "can successfully login" do
       params = {
         "email": "whatever@example.com",
         "password": "password",
         "password_confirmation": "password"
       }
-      @user = User.create!(params)
-    end
-
-    it "can successfully login" do
+      user = User.create!(params)
       body = {
       "email": "whatever@example.com",
       "password": "password"
@@ -50,6 +47,12 @@ RSpec.describe 'Log In User' do
     end
 
     it "cannot login if password does not match" do
+      params = {
+        "email": "whatever@example.com",
+        "password": "password",
+        "password_confirmation": "password"
+      }
+      user = User.create!(params)
       body = {
       "email": "whatever@example.com",
       "password": "password1"

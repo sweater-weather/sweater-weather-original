@@ -16,11 +16,11 @@ RSpec.describe 'User' do
     post '/api/v1/users', headers: headers, params: JSON.generate(params)
 
     expect(response).to be_successful
+
     expect(response.status).to eq(201)
     expect(response.content_type).to eq('application/json')
     user = User.last
     expect(user.email).to eq(params[:email])
-
     json = JSON.parse(response.body, symbolize_names: true)
     expect(json[:data][:type]).to eq('users')
     expect(json[:data]).to have_key(:id)
