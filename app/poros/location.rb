@@ -1,7 +1,8 @@
 class Location
   attr_reader :city,
               :state,
-              :country
+              :country,
+              :country_name
 
   def initialize(location_params)
     @city = location_params[:city]

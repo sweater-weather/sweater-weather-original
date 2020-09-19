@@ -1,5 +1,6 @@
 class DailyForecast
   attr_reader :date_time,
+              :date_time_formatted,
               :icon,
               :description,
               :snow_percipitation,
