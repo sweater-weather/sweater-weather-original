@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'User' do
+  # before :each do
+  #   User.destroy_all
+  # end
   it "can post to users" do
     headers = {
       'Content-Type': 'application/json',
@@ -40,13 +43,14 @@ RSpec.describe 'User' do
       "password_confirmation": "password"
     }
 
-    error = { 'status': '400', 'error': 'Fields cannot be blank' }
+    error = { 'error': 'Fields cannot be blank' }
 
     post '/api/v1/users', headers: headers, params: JSON.generate(params)
 
     r = JSON.parse(response.body, symbolize_names: true)
 
     expect(r).to eq(error)
+    expect(response.status).to eq(400)
   end
 
   it "returns a fields cannot be blank error if password is left blank" do
@@ -61,13 +65,14 @@ RSpec.describe 'User' do
       "password_confirmation": "password"
     }
 
-    error = { 'status': '400', 'error': 'Fields cannot be blank' }
+    error = { 'error': 'Fields cannot be blank' }
 
     post '/api/v1/users', headers: headers, params: JSON.generate(params)
 
     r = JSON.parse(response.body, symbolize_names: true)
 
     expect(r).to eq(error)
+    expect(response.status).to eq(400)
   end
 
   it "returns a fields cannot be blank error if password confirmation is left blank" do
@@ -82,13 +87,14 @@ RSpec.describe 'User' do
       "password_confirmation": ""
     }
 
-    error = { 'status': '400', 'error': 'Fields cannot be blank' }
+    error = { 'error': 'Fields cannot be blank' }
 
     post '/api/v1/users', headers: headers, params: JSON.generate(params)
 
     r = JSON.parse(response.body, symbolize_names: true)
 
     expect(r).to eq(error)
+    expect(response.status).to eq(400)
   end
 
   it "returns a fields cannot be blank error if all fields are left blank" do
@@ -103,13 +109,14 @@ RSpec.describe 'User' do
       "password_confirmation": ""
     }
 
-    error = { 'status': '400', 'error': 'Fields cannot be blank' }
+    error = { 'error': 'Fields cannot be blank' }
 
     post '/api/v1/users', headers: headers, params: JSON.generate(params)
 
     r = JSON.parse(response.body, symbolize_names: true)
 
     expect(r).to eq(error)
+    expect(response.status).to eq(400)
   end
 
   it "Emails must be unique" do
@@ -124,13 +131,14 @@ RSpec.describe 'User' do
     }
     user = User.create!(params)
 
-    error = { 'status': '400', 'error': 'Email has already been taken' }
+    error = { 'error': 'Email has already been taken' }
 
     post '/api/v1/users', headers: headers, params: JSON.generate(params)
 
     r = JSON.parse(response.body, symbolize_names: true)
 
     expect(r).to eq(error)
+    expect(response.status).to eq(400)
   end
 
   it "Passwords must match" do
@@ -145,13 +153,14 @@ RSpec.describe 'User' do
       "password_confirmation": "password"
     }
 
-    error = { 'status': '400', 'error': 'Passwords do not match' }
+    error = { 'error': 'Passwords do not match' }
 
     post '/api/v1/users', headers: headers, params: JSON.generate(params)
 
     r = JSON.parse(response.body, symbolize_names: true)
 
     expect(r).to eq(error)
+    expect(response.status).to eq(400)
   end
 
   it "Password confirmation must match" do
@@ -166,12 +175,13 @@ RSpec.describe 'User' do
       "password_confirmation": "password1"
     }
 
-    error = { 'status': '400', 'error': 'Passwords do not match' }
+    error = { 'error': 'Passwords do not match' }
 
     post '/api/v1/users', headers: headers, params: JSON.generate(params)
 
     r = JSON.parse(response.body, symbolize_names: true)
 
     expect(r).to eq(error)
+    expect(response.status).to eq(400)
   end
 end

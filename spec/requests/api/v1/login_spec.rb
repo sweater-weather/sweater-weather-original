@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Log In User' do
   describe 'As a authenticated user' do
+    before :each do
+      User.destroy_all
+    end
     it "can successfully login" do
       params = {
         "email": "whatever@example.com",
@@ -42,8 +45,9 @@ RSpec.describe 'Log In User' do
 
       json = JSON.parse(response.body, symbolize_names: true)
 
-      error = { 'status': '400', 'error': 'Email does not exists'}
+      error = { 'error': 'Email does not exists'}
       expect(json).to eq(error)
+      expect(response.status).to eq(400)
     end
 
     it "cannot login if password does not match" do
@@ -66,8 +70,9 @@ RSpec.describe 'Log In User' do
 
       json = JSON.parse(response.body, symbolize_names: true)
 
-      error = { 'status': '400', 'error': 'Credentials are Bad' }
+      error = { 'error': 'Credentials are Bad' }
       expect(json).to eq(error)
+      expect(response.status).to eq(400)
     end
   end
 end
