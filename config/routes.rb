@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post '/sessions', to: 'sessions#create'
       post '/users', to: 'users#create'
       post '/road_trip', to: 'road_trip#create'
+      get '/climbing_routes', to: 'climbing_routes#index'
     end
   end
 end
