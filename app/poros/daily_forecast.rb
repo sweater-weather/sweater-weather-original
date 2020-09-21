@@ -1,4 +1,6 @@
 class DailyForecast
+  include Formattable
+
   attr_reader :date_time,
               :date_time_formatted,
               :icon,
@@ -21,9 +23,5 @@ class DailyForecast
 
   def date_time_formatted
     Time.at(@date_time).strftime('%A')
-  end
-
-  def icon_link(code)
-    "http://openweathermap.org/img/wn/#{code}@2x.png"
   end
 end
