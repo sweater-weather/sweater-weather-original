@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ClimbingRoute do
+RSpec.describe Route do
   it "can create a ClimbingRoute" do
     data = {
       name: "Dopey Duck",
@@ -14,11 +14,11 @@ RSpec.describe ClimbingRoute do
       ],
       distance_to_route: "76.876"
     }
-    cr = ClimbingRoute.new(data)
-    expect(cr.name).to eq(data[:name])
-    expect(cr.type).to eq(data[:type])
-    expect(cr.rating).to eq(data[:rating])
-    expect(cr.location).to eq(data[:location])
-    expect(cr.distance_to_route).to eq(data[:distance_to_route])
+    r = Route.new(data)
+    expect(r.name).to eq(data[:name])
+    expect(r.type).to eq(data[:type])
+    expect(r.rating).to eq(data[:rating])
+    expect(r.location).to eq(data[:location])
+    expect(r.distance_to_route).to eq(data[:distance_to_route])
   end
 end

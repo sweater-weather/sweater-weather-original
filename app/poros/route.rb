@@ -1,4 +1,4 @@
-class ClimbingRoute
+class Route
   attr_reader :name, :type, :rating, :location, :distance_to_route
 
   def initialize(params)
