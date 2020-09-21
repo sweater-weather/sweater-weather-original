@@ -69,13 +69,13 @@ RSpec.configure do |config|
   end
 end
 
-# VCR.configure do |config|
-#   c.allow_http_connections_when_no_cassette = true
-#   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
-#   config.hook_into :webmock
-#   config.filter_sensitive_data('DONT_SHARE_MY_MAPQUEST_API_KEY') { ENV['MAPQUEST_API_KEY'] }
-#   config.filter_sensitive_data('DONT_SHARE_MY_WEATHER_API_KEY') { ENV['WEATHER_API_KEY'] }
-#   config.filter_sensitive_data('DONT_SHARE_MY_UNSPLASH_API_KEY') { ENV['UNSPLASH_API_KEY'] }
-#   config.default_cassette_options = { re_record_interval: 7.days }
-#   config.configure_rspec_metadata!
-# end
+VCR.configure do |config|
+  config.allow_http_connections_when_no_cassette = true
+  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  config.hook_into :webmock
+  config.filter_sensitive_data('DONT_SHARE_MY_MAPQUEST_API_KEY') { ENV['MAPQUEST_API_KEY'] }
+  config.filter_sensitive_data('DONT_SHARE_MY_WEATHER_API_KEY') { ENV['WEATHER_API_KEY'] }
+  config.filter_sensitive_data('DONT_SHARE_MY_UNSPLASH_API_KEY') { ENV['UNSPLASH_API_KEY'] }
+  config.default_cassette_options = { re_record_interval: 7.days }
+  config.configure_rspec_metadata!
+end

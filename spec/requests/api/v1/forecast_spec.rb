@@ -32,7 +32,7 @@ RSpec.describe 'Forecast endpoint' do
       expect(forecast[:data][:attributes][:location]).to have_key(key)
     end
 
-    current_forecast_keys = [:description, :current_weather, :icon, :high, :low, :date_time, :date_time_formatted, :feels_like, :humidity, :visibility, :uv_index, :sunrise, :sunrise_formatted, :sunset, :sunset_formatted]
+    current_forecast_keys = [:description, :current_weather, :icon, :high, :low, :date_time, :date_time_formatted, :feels_like, :humidity, :visibility, :uv_index, :sunrise, :sunrise_time, :sunset, :sunset_time]
     current_forecast_keys.each do |key|
       expect(forecast[:data][:attributes][:current_forecast]).to have_key(key)
     end
