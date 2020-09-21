@@ -1,6 +1,10 @@
 class Api::V1::BackgroundsController < ApplicationController
   def show
-    render json: ImageSerializer.new(image(params[:location])).serializable_hash
+    if params[:location].nil? || params[:location].empty?
+      render json: { 'errors': 'No location specified' }, status: 400
+    else
+      render json: ImageSerializer.new(image(params[:location])).serializable_hash
+    end
   end
 
   private
