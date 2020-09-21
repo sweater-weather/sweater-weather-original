@@ -7,7 +7,7 @@ RSpec.describe 'Climbing routes service' do
     keys = [:id, :name, :type, :rating, :stars, :starVotes, :pitches, :location, :url, :imgSqSmall, :imgSmall, :imgSmallMed, :imgMedium, :longitude, :latitude]
     service = ClimbingRoutesService.new.routes(lat, lon)
     keys.each do |key|
-      expect(service).to have_key(key)
+      expect(service[:routes][0]).to have_key(key)
     end
   end
 end
