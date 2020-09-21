@@ -10,7 +10,7 @@ class ImageFacade
       image_url: image_service[:urls][:raw],
       credit: credits
     }
-    # Image.new(data)
+    Image.new(data)
   end
 
   private
