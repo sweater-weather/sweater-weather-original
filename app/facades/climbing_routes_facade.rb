@@ -41,8 +41,16 @@ class ClimbingRoutesFacade
   end
 
   def routes
+    # routes = []
     climbing_routes_service[:routes].map do |route_data|
-      Route.new(route_data)
+      latlng = "#{route_data[:latitude]},#{route_data[:longitude]}"
+      distance = location_service.road_trip(@location, latlng)[:route][:legs][0][:distance]
+      require 'pry'; binding.pry
+      r = Route.new(route_data)
+      r.set_distance_to_route(distance)
+      # routes << r
+      r
     end
+    # routes
   end
 end
