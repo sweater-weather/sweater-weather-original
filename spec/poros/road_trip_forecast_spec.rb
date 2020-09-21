@@ -7,7 +7,6 @@ RSpec.describe RoadTripForecast do
       description: 'clear sky'
     }
     rtf = RoadTripForecast.new(params)
-
     expect(rtf.temperature).to eq(params[:temperature])
     expect(rtf.description).to eq(params[:description])
   end
