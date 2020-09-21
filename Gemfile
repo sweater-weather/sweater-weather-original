@@ -30,8 +30,6 @@ gem 'faraday'
 gem 'fast_jsonapi'
 gem 'countries'
 gem 'bcrypt'
-gem 'factory_bot_rails'
-gem 'faker'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
