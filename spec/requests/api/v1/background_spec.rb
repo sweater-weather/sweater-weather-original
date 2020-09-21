@@ -29,4 +29,35 @@ RSpec.describe 'Background Endpoint' do
     expect(background[:data][:attributes][:credit]).to have_key(:author)
     expect(background[:data][:attributes][:credit]).to have_key(:logo)
   end
+
+  it "cannot make request with empty parameters" do
+    params = {
+      location: ''
+    }
+    headers = {
+      'content-type': 'application/json',
+      'Accept': 'application/json'
+    }
+
+    get '/api/v1/backgrounds', headers: headers, params: params
+
+    background = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response.status).to eq(400)
+    expect(background).to eq({ 'errors': 'No location specified' })
+  end
+
+  it "cannot make request with no parameters" do
+    headers = {
+      'content-type': 'application/json',
+      'Accept': 'application/json'
+    }
+
+    get '/api/v1/backgrounds', headers: headers
+
+    background = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response.status).to eq(400)
+    expect(background).to eq({ 'errors': 'No location specified' })
+  end
 end
