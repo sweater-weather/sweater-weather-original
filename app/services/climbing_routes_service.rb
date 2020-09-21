@@ -3,6 +3,7 @@ class ClimbingRoutesService
     response = conn.get '/data/get-routes-for-lat-lon' do |req|
       req.params['lat'] = lat
       req.params['lon'] = lon
+      req.params['maxDistance'] = 5
     end
     to_json(response)
   end
@@ -12,7 +13,7 @@ class ClimbingRoutesService
   def conn
     Faraday.new 'https://www.mountainproject.com' do |f|
       f.params['key'] = ENV['MOUNTAIN_API_KEY']
-      f.params['maxDistance'] = 10
+      # f.params['maxDistance'] = 5
     end
   end
 
