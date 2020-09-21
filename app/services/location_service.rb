@@ -6,6 +6,14 @@ class LocationService
     to_json(response)
   end
 
+  def road_trip(origin, destination)
+    response = conn.get '/directions/v2/route' do |req|
+      req.params[:from] = origin
+      req.params[:to] = destination
+    end
+    to_json(response)
+  end
+
   private
   def conn
     Faraday.new 'http://open.mapquestapi.com' do |f|
