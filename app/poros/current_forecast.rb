@@ -24,26 +24,14 @@ class CurrentForecast
     @high = current_forecast_params[:high]
     @low = current_forecast_params[:low]
     @date_time = current_forecast_params[:date_time]
-    @date_time_formatted = formatted_time
+    @date_time_formatted = format_time(@date_time, '%l:%M %p, %B %d')
     @feels_like = current_forecast_params[:feels_like]
     @humidity = current_forecast_params[:humidity]
     @visibility = current_forecast_params[:visibility]
     @uv_index = current_forecast_params[:uv_index]
     @sunrise = current_forecast_params[:sunrise]
-    @sunrise_formatted = sunrise_time
     @sunset = current_forecast_params[:sunset]
-    @sunset_formatted = sunset_time
-  end
-
-  def formatted_time
-    Time.at(@date_time).strftime("%l:%M %p, %B %d")
-  end
-
-  def sunrise_time
-    Time.at(@sunrise).strftime("%l:%M %p")
-  end
-
-  def sunset_time
-    Time.at(@sunset).strftime("%l:%M %p")
+    @sunrise_time = format_time(@sunrise, '%l:%M %p')
+    @sunset_time = format_time(@sunset, '%l:%M %p')
   end
 end

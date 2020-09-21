@@ -14,7 +14,7 @@ RSpec.describe CurrentForecast do
      :uv_index=>7.04,
      :sunrise=>1600519516,
      :sunset=>1600563710
-   }
+    }
 
     cf = CurrentForecast.new(data)
     expect(cf.description).to eq(data[:description])
@@ -29,8 +29,8 @@ RSpec.describe CurrentForecast do
     expect(cf.sunrise).to eq(data[:sunrise])
     expect(cf.sunset).to eq(data[:sunset])
     expect(cf.icon).to eq("http://openweathermap.org/img/wn/#{data[:icon]}@2x.png")
-    expect(cf.date_time_formatted).to eq(cf.formatted_time)
-    expect(cf.sunrise_time).to eq(Time.at(data[:sunrise]).strftime("%l:%M %p"))
-    expect(cf.sunset_time).to eq(Time.at(data[:sunset]).strftime("%l:%M %p"))
+    expect(cf.date_time_formatted).to eq(Time.at(data[:date_time]).strftime('%l:%M %p, %B %d'))
+    expect(cf.sunrise_time).to eq(Time.at(data[:sunrise]).strftime('%l:%M %p'))
+    expect(cf.sunset_time).to eq(Time.at(data[:sunset]).strftime('%l:%M %p'))
   end
 end

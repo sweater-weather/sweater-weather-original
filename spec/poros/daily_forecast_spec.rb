@@ -19,6 +19,6 @@ RSpec.describe DailyForecast do
     expect(df.high).to eq(data[:high])
     expect(df.low).to eq(data[:low])
     expect(df.icon).to eq("http://openweathermap.org/img/wn/#{data[:icon]}@2x.png")
-    expect(df.date_time_formatted).to eq(Time.at(data[:date_time]).strftime("%A"))
+    expect(df.weekday).to eq(Time.at(data[:date_time]).strftime("%A"))
   end
 end
