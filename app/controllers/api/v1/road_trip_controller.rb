@@ -10,6 +10,6 @@ class Api::V1::RoadTripController < ApplicationController
   private
 
   def road_trip(origin, destination)
-    RoadTripFacade.new(origin, destination)
+    RoadTripFacade.new(origin, destination).road_trip
   end
 end
