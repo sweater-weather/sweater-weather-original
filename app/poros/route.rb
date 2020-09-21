@@ -6,6 +6,10 @@ class Route
     @type = params[:type]
     @rating = params[:rating]
     @location = params[:location]
-    @distance_to_route= params[:distance_to_route]
+    @distance_to_route   = nil
+  end
+
+  def set_distance_to_route(distance)
+    @distance_to_route = distance
   end
 end
