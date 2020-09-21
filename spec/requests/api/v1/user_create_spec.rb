@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'User' do
-  # before :each do
-  #   User.destroy_all
-  # end
+  before :each do
+    User.destroy_all
+  end
   it "can post to users" do
     headers = {
       'Content-Type': 'application/json',

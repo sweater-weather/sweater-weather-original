@@ -2,7 +2,7 @@ class RoadTripForecast
   attr_reader :temperature, :description
 
   def initialize(params)
-    @temperature = params[:temperature]
-    @description = params[:description]
+    @temperature = params[:temp]
+    @description = params[:weather][0][:description]
   end
 end
