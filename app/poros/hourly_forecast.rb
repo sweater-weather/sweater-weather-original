@@ -1,4 +1,4 @@
-class HourlyForecast
+  class HourlyForecast
   attr_reader :icon,
               :date_time,
               :temperature,
