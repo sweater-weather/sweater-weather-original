@@ -13,7 +13,6 @@ RSpec.describe 'Climbing routes' do
 
     get '/api/v1/climbing_routes', headers: headers, params: params
     # params could also be passed as JSON.generate(params), but we're passing these not through the body?
-
     climbing_routes = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
