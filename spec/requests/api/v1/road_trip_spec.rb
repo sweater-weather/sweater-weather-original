@@ -26,7 +26,7 @@ RSpec.describe 'RoadTrip' do
     expect(road_trip).to have_key(:data)
     expect(road_trip[:data][:type]).to eq('road_trip_forecast')
     expect(road_trip[:data]).to have_key(:attributes)
-    keys = [:origin, :destination, :longitude, :latitude, :travel_time, :travel_time_formatted, :arrival_forecast]
+    keys = [:origin, :destination, :travel_time, :travel_time_formatted, :arrival_forecast]
     keys.each do |key|
       expect(road_trip[:data][:attributes]).to have_key(key)
     end
