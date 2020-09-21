@@ -19,6 +19,6 @@ RSpec.describe ClimbingRoute do
     expect(cr.type).to eq(data['type'])
     expect(cr.rating).to eq(data['rating'])
     expect(cr.location).to eq(data['location'])
-    expect(cr.distance).to eq(data['distance'])
+    expect(cr.distance_to_route).to eq(data['distance_to_route'])
   end
 end
