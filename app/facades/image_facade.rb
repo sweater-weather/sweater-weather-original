@@ -2,7 +2,6 @@ class ImageFacade
 
   def initialize(location_param)
     @location_param = location_param
-    @city = location_param.split(',')[0]
   end
 
   def image
@@ -17,7 +16,7 @@ class ImageFacade
   private
 
   def image_service
-    ImageService.new.image(@city)
+    ImageService.new.image(@location_param)
   end
 
   def credits
