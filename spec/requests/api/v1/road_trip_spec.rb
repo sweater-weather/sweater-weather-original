@@ -25,14 +25,19 @@ RSpec.describe 'RoadTrip Endpoint', :vcr do
       expect(response).to be_successful
       expect(response.content_type).to eq('application/json')
       expect(road_trip).to have_key(:data)
+      expect(road_trip[:data]).to be_a(Hash)
       expect(road_trip[:data][:type]).to eq('road_trip_forecast')
       expect(road_trip[:data]).to have_key(:attributes)
+      expect(road_trip[:data][:attributes].size).to eq(5)
       keys = [:origin, :destination, :travel_time, :travel_time_formatted, :arrival_forecast]
       keys.each do |key|
         expect(road_trip[:data][:attributes]).to have_key(key)
+        expect(road_trip[:data][:attributes][key]).to_not be_nil
       end
       expect(road_trip[:data][:attributes][:arrival_forecast]).to have_key(:temperature)
+      expect(road_trip[:data][:attributes][:arrival_forecast][:temperature]).to_not be_nil
       expect(road_trip[:data][:attributes][:arrival_forecast]).to have_key(:description)
+      expect(road_trip[:data][:attributes][:arrival_forecast][:arrival_forecast]).to_not be_nil
     end
   end
 

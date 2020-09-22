@@ -27,6 +27,7 @@ RSpec.describe 'Log In User' do
 
       expect(response.status).to eq(200)
       expect(json[:data][:type]).to eq('users')
+      expect(json[:data][:attributes].size).to eq(2)
       expect(json[:data][:attributes][:email]).to eq(body[:email])
       expect(json[:data][:attributes][:api_key]).to_not eq(nil)
     end
