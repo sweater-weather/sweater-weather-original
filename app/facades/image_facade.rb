@@ -1,5 +1,4 @@
 class ImageFacade
-
   def initialize(location_param)
     @location_param = location_param
   end
