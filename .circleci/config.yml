@@ -8,7 +8,7 @@ jobs:
           BUNDLE_JOBS: 3
           BUNDLE_PATH: vendor/bundle
           BUNDLE_RETRY: 3
-          BUNDLER_VERSION: 2.0.1
+          BUNDLER_VERSION: 2.1.4
           RAILS_ENV: test
           DB_HOST: 127.0.0.1
           PG_HOST: 127.0.0.1
@@ -27,7 +27,7 @@ jobs:
             - configure_bundler
       - run:
           name: Install Ruby Dependencies
-          command: gem install bundler -v 1.16.1 && bundle install --jobs=4 --retry=3 --path vendor/bundle
+          command: gem install bundler -v 2.1.4
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
