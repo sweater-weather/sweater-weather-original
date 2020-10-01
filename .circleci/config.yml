@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/sweater_weather
     docker:
-      - image: circleci/ruby:2.5-stretch-node-browsers
+      - image: circleci/ruby:2.5.3-stretch-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_PATH: vendor/bundle
@@ -63,9 +63,9 @@ staging:
           password $HEROKU_PASSWORD
         EOF
     - run: chmod 600 ~/.netrc
-    - run: heroku git:remote -a my-app-staging
+    - run: heroku git:remote -a sweater_weather-staging
     - run: git push heroku staging:master
-    - run: heroku run rake db:migrate --app my-app-staging
+    - run: heroku run rake db:migrate --app sweater_weather-staging
 workflows:
   version: 2
   build_test_deploy:
