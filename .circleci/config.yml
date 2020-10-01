@@ -24,7 +24,7 @@ jobs:
           keys:
             - sweater_weather-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
             - sweater_weather-
-      - configure_bundler
+            - configure_bundler
       - run:
           name: Install Ruby Dependencies
           command: gem install bundler -v 1.16.1 && bundle install --jobs=4 --retry=3 --path vendor/bundle
