@@ -28,7 +28,7 @@ jobs:
       - run:
           name: Install Ruby Dependencies
           command: gem install bundler -v 1.16.1 && bundle install --jobs=4 --retry=3 --path vendor/bundle
-            - run:
+      - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
       - run:
