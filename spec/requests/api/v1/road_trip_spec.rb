@@ -37,7 +37,8 @@ RSpec.describe 'RoadTrip Endpoint', :vcr do
       expect(road_trip[:data][:attributes][:arrival_forecast]).to have_key(:temperature)
       expect(road_trip[:data][:attributes][:arrival_forecast][:temperature]).to_not be_nil
       expect(road_trip[:data][:attributes][:arrival_forecast]).to have_key(:description)
-      expect(road_trip[:data][:attributes][:arrival_forecast][:arrival_forecast]).to_not be_nil
+      expect(road_trip[:data][:attributes][:arrival_forecast]).to be_a(Hash)
+      expect(road_trip[:data][:attributes][:arrival_forecast].size).to eq(2)
     end
   end
 
