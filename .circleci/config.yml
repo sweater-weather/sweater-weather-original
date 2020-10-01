@@ -1,15 +1,5 @@
 orbs:
    heroku: circleci/heroku@1.0.1 # Use the Heroku orb in your config
-workflows:
-  heroku_deploy:
-    jobs:
-      - build
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
-          requires:
-            - build # only run deploy-via-git job if the build job has completed
-          filters:
-            branches:
-              only: main # only run deploy-via-git job on master branch
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
     parallelism: 1 # run three instances of this job in parallel
@@ -64,3 +54,17 @@ jobs: # a collection of steps
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test_results
+workflows:
+  version: 2
+  integration:
+    jobs:
+      - build
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build # only run deploy-via-git job if the build job has completed
+          filters:
+            branches:
+              only: main # only run deploy-via-git job on master branch
