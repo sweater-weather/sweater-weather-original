@@ -1,10 +1,9 @@
-version: 2.1
-
-executors:
-  default:
+version: 2
+jobs:
+  build:
     working_directory: ~/sweater_weather
     docker:
-      - image: circleci/ruby:2.5.3
+      - image: circleci/ruby:2.5-stretch-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_PATH: vendor/bundle
@@ -13,26 +12,12 @@ executors:
           RAILS_ENV: test
           DB_HOST: 127.0.0.1
           PG_HOST: 127.0.0.1
-          PGUSER: sweater_weather
+          PGUSER: postgres
       - image: circleci/postgres:12.3
         environment:
           POSTGRES_DB: sweater_weather_test
           POSTGRES_USER: sweater_weather
-
-commands:
-  configure_bundler:
-    description: Configure bundler
-    steps:
-      - run:
-          name: Configure bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
-
-jobs:
-  build:
-    executor: default
+          POSTGRES_PASSWORD: <%= ENV['SWEATER_WEATHER_DATABASE_PASSWORD'] %>
     steps:
       - checkout
       - restore_cache:
@@ -41,21 +26,14 @@ jobs:
             - sweater_weather-
       - configure_bundler
       - run:
-          name: Install bundle
-          command: bundle install
-      - run:
+          name: Install Ruby Dependencies
+          command: gem install bundler -v 1.16.1 && bundle install --jobs=4 --retry=3 --path vendor/bundle
+            - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
       - run:
           name: Setup DB
           command: bundle exec rails db:create db:schema:load --trace
-      - run:
-          name: RSpec
-          command: |
-            bundle exec rspec --profile 10 \
-                              --format progress
-      - store_artifacts:
-          path: coverage
       - save_cache:
           key: sweater_weather-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
@@ -64,9 +42,38 @@ jobs:
           root: ~/
           paths:
             - ./sweater_weather
-
+      - run: |-
+          export RAILS_ENV="test"
+          export RACK_ENV="test"
+          bundle exec rake db:create db:schema:load ts:configure ts:index ts:start --trace
+      - run: bundle exec rake db:migrate
+      - run: bundle exec rspec spec
+staging:
+  machine: true
+  working_directory: ~/sweater_weather
+  steps:
+    - checkout
+    - run: |-
+        cat >~/.netrc <<EOF
+        machine api.heroku.com
+          login $HEROKU_USERNAME
+          password $HEROKU_PASSWORD
+        machine git.heroku.com
+          login $HEROKU_USERNAME
+          password $HEROKU_PASSWORD
+        EOF
+    - run: chmod 600 ~/.netrc
+    - run: heroku git:remote -a my-app-staging
+    - run: git push heroku staging:master
+    - run: heroku run rake db:migrate --app my-app-staging
 workflows:
   version: 2
-  integration:
+  build_test_deploy:
     jobs:
       - build
+      - staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: staging
